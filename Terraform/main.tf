@@ -49,5 +49,5 @@ module "eks" {
 module "ecr" {
     source = "./modules/ECR"
 
-    ecr_argocd_repo-name = "argocd-app"
+    ecr_argocd_repo-name = "flask-app"
 }
