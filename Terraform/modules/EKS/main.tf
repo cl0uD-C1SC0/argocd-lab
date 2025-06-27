@@ -35,3 +35,48 @@ resource "aws_eks_node_group" "eks-ndg-argocd" {
 
   subnet_ids = var.pubsubnet
 }
+
+# ADDONS
+resource "aws_eks_addon" "argocd-cluster-vpccni-addon" {
+  depends_on = [ aws_eks_node_group.eks-ndg-argocd ]
+  cluster_name = aws_eks_cluster.eks-argocd.name
+  addon_name   = "vpc-cni"
+}
+
+resource "aws_eks_addon" "argocd-cluster-kubeproxy-addon" {
+  depends_on = [ aws_eks_node_group.eks-ndg-argocd ]
+  cluster_name = aws_eks_cluster.eks-argocd.name
+  addon_name   = "kube-proxy"
+}
+
+resource "aws_eks_addon" "argocd-cluster-metricsserver-addon" {
+  depends_on = [ aws_eks_node_group.eks-ndg-argocd ]
+  cluster_name = aws_eks_cluster.eks-argocd.name
+  addon_name   = "metrics-server"
+}
+
+resource "aws_eks_addon" "argocd-cluster-corends-addon" {
+  depends_on = [ aws_eks_node_group.eks-ndg-argocd ]
+  cluster_name = aws_eks_cluster.eks-argocd.name
+  addon_name   = "coredns"
+}
+
+# Access entries
+data "aws_caller_identity" "current-account" {}
+
+resource "aws_eks_access_entry" "argocd-eks-access-entrie" {
+  depends_on = [ aws_eks_cluster.eks-argocd ]
+  cluster_name      = aws_eks_cluster.eks-argocd.name
+  principal_arn     = data.aws_caller_identity.current-account.arn
+  type              = "STANDARD"
+}
+
+resource "aws_eks_access_policy_association" "argocd-eks-access-policie" {
+  depends_on = [ aws_eks_cluster.eks-argocd ]
+  cluster_name = aws_eks_cluster.eks-argocd.name
+  policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+  principal_arn = data.aws_caller_identity.current-account.arn
+  access_scope {
+    type = "cluster"
+  }
+}
