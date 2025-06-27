@@ -1,0 +1,63 @@
+---
+- name: Instala o ArgoCD no cluster Kubernetes
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Criar namespace argocd
+      community.kubernetes.k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Namespace
+          metadata:
+            name: argocd
+
+    - name: Instalar ArgoCD via manifest oficial
+      ansible.builtin.shell: |
+        kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+      args:
+        executable: /bin/bash
+
+    - name: Aguarda os pods ficarem prontos
+      community.kubernetes.k8s_info:
+        kind: Pod
+        namespace: argocd
+      register: argocd_pods
+      until: >
+        argocd_pods.resources | selectattr('status.phase', 'equalto', 'Running') | list | length >= 1
+      retries: 20
+      delay: 15
+
+    - name: Exibir senha inicial do ArgoCD
+      ansible.builtin.shell: |
+        kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d; echo
+      register: argocd_admin_password
+      args:
+        executable: /bin/bash
+
+    - name: Alterar o service do ArgoCD para LoadBalancer
+      community.kubernetes.k8s:
+        kind: Service
+        namespace: argocd
+        name: argocd-server
+        definition:
+          spec:
+            type: LoadBalancer
+        merge_type:
+          - strategic-merge
+
+    - name: Extrair o hostname do LoadBalancer
+      ansible.builtin.shell: |
+        kubectl get svc argocd-server -n argocd -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+      register: argocd_url
+      args:
+        executable: /bin/bash
+
+    - name: Mostrar senha e URL no output
+      ansible.builtin.debug:
+        msg: 
+          - "✅ ArgoCD instalado com sucesso!" 
+          - "ARGOCD URL: {{ argocd_url.stdout }} "
+          - "ARGOCD USERNAME: admin"
+          - "ARGOCD PASSWORD: {{ argocd_admin_password.stdout }}"
+
