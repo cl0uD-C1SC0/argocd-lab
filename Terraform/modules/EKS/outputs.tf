@@ -1,4 +1,3 @@
-# EKS OUTPUTS
-# EKS NAME
-# EKS REGION
-# EKS ID
+output "eks-cluster-name" {
+  value = aws_eks_cluster.eks-argocd.name
+}
