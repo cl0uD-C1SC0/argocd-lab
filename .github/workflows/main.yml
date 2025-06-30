@@ -12,7 +12,7 @@ on:
       - ".gitignore"
       - ".yaml"
 jobs:
-  githubactions-senai:
+  argocd-rollouts:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
