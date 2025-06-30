@@ -20,3 +20,7 @@ jobs:
       - name: INSTALL PACKAGES
         run: |
           echo "v1"
+          # A pipeline vai fazer o Build do APP
+          # Rodar o SNYK SCAN
+          # VALIDAR SE A BRANCH FOR MAIN = ABRIR PR automatica da dev para main no repo de codigo
+          
