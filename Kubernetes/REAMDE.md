@@ -15,3 +15,28 @@ curl flask-app-svc.flask.svc.cluster.local:8080
 ```
 
 ## Expose
+
+## Test Blue Green service:
+
+> 01 - Create a simple nginx pod
+```bash
+kubectl run nginx --image nginx -n flask-app-hml
+```
+
+> 02 - Active
+```bash
+curl flask-bluegreen-active-svc.flask-app-hml.svc.cluster.local:80
+```
+
+> 03 - Preview
+```bash
+curl flask-bluegreen-preview-svc.flask-app-hml.svc.cluster.local:80
+```
+
+> 04 - Promote the new version
+```bash
+kubectl-argo-rollouts promote <-n namespace if exists> <name-of-rollout-deployment>
+```
+
+OBS: Após executar o promote, só aguardar.
+OBS: NÃO HÁ MANEIRAS AUTOMATIZADA DE EFETUAR ROLLBACK...
