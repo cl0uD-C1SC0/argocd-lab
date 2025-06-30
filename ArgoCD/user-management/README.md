@@ -70,8 +70,8 @@ rm argocd-linux-amd64
 
 - 04: Faça Login no ArgoCD
 ```bash
-HOSTNAME=$(kubectl get svc argocd-server -n argocd -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
-argocd login $HOSTNAME
+ARGOCDURL=$(kubectl get svc argocd-server -n argocd -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+argocd login $ARGOCDURL
 ```
 
 - 04: Defina senha do usuário:
