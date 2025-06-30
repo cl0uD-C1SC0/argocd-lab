@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: 
+  namespace: 
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: 
+  template:
+    metadata:
+      labels:
+        app: 
+    spec:
+      containers:
+        - name: 
+          image: <YOUR_ACCOUNT_ID>.dkr.ecr.<REGION>.amazonaws.com/flask-app:v2
+          ports:
+            - containerPort: 5000
+          # Para fazer o rollout automatico é necessário readinessProbe.
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+  strategy:
+    type: Canary
+    canary:
+      steps:
+        # Config de Canary
+        # Começa com 20%, após 30s vai para 50%, após 30s vai para 100%
+        - setWeight: 20
+        - pause: { duration: 30s }
+        - setWeight: 50
+        - pause: { duration: 30s }
+        - setWeight: 100
