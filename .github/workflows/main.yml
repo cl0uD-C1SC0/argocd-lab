@@ -1,0 +1,22 @@
+name: argocd-rollouts-cicd
+run-name: ${{ github.actor }} Pipeline deploy
+on:
+  push:
+    branches:
+      - "main"
+    paths-ignore:
+      - "*.txt"
+      - ".md"
+      - ".tf"
+      - "init.py"
+      - ".gitignore"
+      - ".yaml"
+jobs:
+  githubactions-senai:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: INSTALL PACKAGES
+        run: |
+          echo "v1"
