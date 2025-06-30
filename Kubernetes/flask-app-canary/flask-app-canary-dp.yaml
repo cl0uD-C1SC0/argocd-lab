@@ -1,28 +1,30 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: 
-  namespace: 
+  name: flask-app-dp
+  namespace: flask
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: 
+      app: flask-app
   template:
     metadata:
       labels:
-        app: 
+        app: flask-app
     spec:
       containers:
-        - name: 
-          image: <YOUR_ACCOUNT_ID>.dkr.ecr.<REGION>.amazonaws.com/flask-app:v2
+        - name: flask-container
+          image: 590183702475.dkr.ecr.us-east-1.amazonaws.com/flask-app:v1 
+          # Image flask-app:v2 -> Porta 8181 = erro no healthcheck
+          # Image flask-app:v3 -> Porta 8080 + Hello World - v3
           ports:
-            - containerPort: 5000
+            - containerPort: 8080
           # Para fazer o rollout automatico é necessário readinessProbe.
           readinessProbe:
             httpGet:
               path: /
-              port: 5000
+              port: 8080
             initialDelaySeconds: 5
             periodSeconds: 5
   strategy:

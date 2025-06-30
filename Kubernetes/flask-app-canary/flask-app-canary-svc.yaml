@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: 
-  namespace: 
+  name: flask-svc
+  namespace: flask
 spec:
   selector:
-    app: 
+    app: flask-app
   type: ClusterIP
   ports:
   - name: http
