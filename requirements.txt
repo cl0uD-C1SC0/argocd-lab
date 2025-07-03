@@ -1,2 +1,1 @@
-python-terraform
 boto3
