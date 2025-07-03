@@ -1,7 +1,18 @@
-from python_terraform import *
 import time
+import os
+import shutil
+import subprocess
 
-tf_client = Terraform()
+def init_terraform_environment():
+    print("  ℹ️  Initializying Terraform Environment ")
+    subprocess.run(
+        ["terraform", "init"],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL
+    )
+    print("  ✅ Terraform has been initialized")
+
+    ...
 
 def apply_terraform_environment():
     print("  ℹ️  The Terraform will be create the following resources in AWS Cloud: ")
@@ -21,19 +32,31 @@ def apply_terraform_environment():
     time.sleep(2)
     print("  ℹ️  Applying Terraform Environment ")
     print("  ℹ️  Wait a few minutes...")
-    tf_client.apply()
+    subprocess.run(
+        ["terraform", "apply", "--auto-approve"],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL
+    )
     print("  ✅ Terraform has been applied!")
-    ...
 
 def delete_terraform_environment():
+    files_to_delete = [".terraform", ".terraform.lock.hcl", "terraform.tfstate", "terraform.tfstate.backup"]
+
     print("  ℹ️  Deleting Terraform Environment...")
-    tf_client.destroy()
+    subprocess.run(
+        ["terraform", "destroy", "--auto-approve"]       
+    )
+    for file in files_to_delete:
+        if file == ".terraform":
+            shutil.rmtree(file)
+        else:
+            os.remove(file)
     print("  ✅ Terraform Environment has been deleted!")
-    ...
 
 def start(TERRAFORM_PATH, propose):
     os.chdir(TERRAFORM_PATH)
     if propose == "apply":
+        init_terraform_environment()
         apply_terraform_environment()
         return "Terraform Environment Applied"
     delete_terraform_environment()
