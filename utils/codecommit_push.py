@@ -17,7 +17,7 @@ def create_first_commit(repo):
             }
         ]
     )
-    print(f" ✅  Successful first commit to: {repo}")
+    print(f" ✅ Successful first commit to: {repo}")
 
 def get_first_commit_id(repo):
     response = client.get_branch(
