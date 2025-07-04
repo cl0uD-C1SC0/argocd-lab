@@ -1,26 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: flask-app-dp
-  namespace: flask
+  name: flask-app-canary-dp
+  namespace: flask-app-hml
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: flask-app
+      app: flask-app-canary
   template:
     metadata:
       labels:
-        app: flask-app
+        app: flask-app-canary
     spec:
       containers:
-        - name: flask-container
+        - name: flask-app-canary-container
           image: 590183702475.dkr.ecr.us-east-1.amazonaws.com/flask-app:v1 
-          # Image flask-app:v2 -> Porta 8181 = erro no healthcheck
-          # Image flask-app:v3 -> Porta 8080 + Hello World - v3
           ports:
             - containerPort: 8080
-          # Para fazer o rollout automatico é necessário readinessProbe.
           readinessProbe:
             httpGet:
               path: /
@@ -31,8 +28,6 @@ spec:
     type: Canary
     canary:
       steps:
-        # Config de Canary
-        # Começa com 20%, após 30s vai para 50%, após 30s vai para 100%
         - setWeight: 20
         - pause: { duration: 30s }
         - setWeight: 50
