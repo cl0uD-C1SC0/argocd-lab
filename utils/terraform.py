@@ -27,6 +27,13 @@ def apply_terraform_environment():
     run_command(COMMAND="terraform apply --auto-approve")
     print(" ✅ Terraform has been applied!")
 
+def save_terraform_output(BASE_PATH):
+    print(f" ℹ️  Saving Terraform outputs on: {BASE_PATH}/terraform_outputs.json")
+    time.sleep(2)
+    run_command(COMMAND=f"terraform output codecommit-cred-user >> {BASE_PATH}/terraform_outputs")
+    run_command(COMMAND=f"terraform output codecommit-cred-password >> {BASE_PATH}/terraform_outputs")
+    print(" ✅ Saved the Terraform outputs ")
+
 def delete_terraform_environment():
     files_to_delete = [".terraform.lock.hcl", "terraform.tfstate", "terraform.tfstate.backup"]
 
@@ -39,11 +46,15 @@ def delete_terraform_environment():
 
     print(" ✅ Terraform Environment has been deleted!")
 
-def start(TERRAFORM_PATH, propose):
+def start(BASE_PATH, TERRAFORM_PATH, propose):
     change_directory(TERRAFORM_PATH)
     if propose == "apply":
         init_terraform_environment()
         apply_terraform_environment()
+        save_terraform_output(BASE_PATH)
         return "Terraform Environment Applied"
     delete_terraform_environment()
     return "Terraform Environment Deleted"
+
+if __name__ == '__main__':
+    print("Please, run init.py script located in the Root Directory of this repository")
