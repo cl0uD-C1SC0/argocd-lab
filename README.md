@@ -1,5 +1,7 @@
 # ARGOCD ROLLOUTS - PROOF OF CONCEPT
 
+> ⚠️⚠️ NEW DOC ARE COMMING UP ⚠️⚠️
+
 Neste repositório você terá acesso a todas as ferramentas utilizadas para realizar a instalação, configuração e testes do ArgoCD Rollouts.
 
 **Uma breve descrição a respeito:**
