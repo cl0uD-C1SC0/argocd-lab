@@ -1,5 +1,7 @@
-variable "argocd-codecommit-repo-name" {
-  description = "Variable that's define AWS Code Commit repository name"
+
+
+variable "codecommit-credentials-user" {
+  description = "Variable that's define the name of the user that want's git credentials"
   type = string
-  default = "argocd-repo"
+  default = "cloud_user"
 }
