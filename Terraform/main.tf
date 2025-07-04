@@ -51,3 +51,11 @@ module "ecr" {
 
     ecr_argocd_repo-name = "flask-app"
 }
+
+module "codecommit" {
+    source = "./modules/CodeCommit"
+
+    # Please, DON'T CHANGE THIS VARIABLE
+    argocd-codecommit-repo-name = "argocd-repository"
+
+}
