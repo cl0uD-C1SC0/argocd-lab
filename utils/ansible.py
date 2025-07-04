@@ -1,9 +1,15 @@
 import subprocess
 import os
 import time
+from util import run_command
+
+def apply_argocd_apps():
+    print(" ℹ️ Applying ArgoCD APPs")
+    run_command(COMMAND="ansible-playbook apply-argo-apps.yml")
+    print(" ✅ ArgoCD APPs applyed!")
 
 def get_argocd_credentials(BASE_PATH):
-    print("  ℹ️  Getting Argo credentials")
+    print(" ℹ️  Getting Argo credentials")
     result = subprocess.run(
     ["ansible-playbook", "get-argocd-credentials.yml"],
     stdout=subprocess.PIPE,
@@ -15,11 +21,11 @@ def get_argocd_credentials(BASE_PATH):
             if "ARGO" in line.replace(' ', ''):
                 file.write(line.strip().replace('"', '').replace(",", "") +"\n")
     
-    print("  ✅  Credentials are been saved on the following file: argocd_credentials.txt")
+    print(" ✅ Credentials are been saved on the following file: argocd_credentials.txt")
 
 
 def apply_ansible_scripts():
-    print("  ℹ️  The following scripts will be applied in the Environment: ")
+    print(" ℹ️  The following scripts will be applied in the Environment: ")
     print("   |---------------------------------------|-------------------------------------|")
     print("   |           ANSIBLE SCRIPT              |            SCRIPT NAME              |")
     print("   |---------------------------------------|-------------------------------------|")
@@ -29,7 +35,7 @@ def apply_ansible_scripts():
     print("   |  Install Ingress Nginx                | install-ingress-nginx.yml           |")
     print("   |---------------------------------------|-------------------------------------|\n")
     time.sleep(2)
-    print("  ℹ️  Applying Ansible scripts")
+    print(" ℹ️  Applying Ansible scripts")
     for script in os.listdir():
         if script.startswith("install"):
             subprocess.run(
@@ -37,8 +43,8 @@ def apply_ansible_scripts():
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL
             )
-            print(f"  ✅ Script: {script} has been applied!")
-    print(f"  ✅ All scripts has been applied in the Environment!")
+            print(f" ✅ Script: {script} has been applied!")
+    print(f" ✅ All scripts has been applied in the Environment!")
     
 
 def start(BASE_PATH, ANSIBLE_PATH):
