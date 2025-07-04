@@ -16,3 +16,8 @@ resource "aws_codecommit_repository" "flask-app-bluegreen-repo" {
   default_branch = "master"
 }
 
+# CREATING AWS IAM GIT CREDENTIALS
+resource "aws_iam_service_specific_credential" "codecommit-user-credentials" {
+  service_name = "codecommit.amazonaws.com"
+  user_name    = var.codecommit-credentials-user
+}
