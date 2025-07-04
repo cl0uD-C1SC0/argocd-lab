@@ -55,7 +55,6 @@ module "ecr" {
 module "codecommit" {
     source = "./modules/CodeCommit"
 
-    # Please, DON'T CHANGE THIS VARIABLE
-    argocd-codecommit-repo-name = "argocd-repository"
+    codecommit-credentials-user = "cloud_user"
 
 }
