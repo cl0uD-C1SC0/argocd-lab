@@ -5,6 +5,7 @@ Terraform/*.tfstate*
 *.txt
 __init__.py
 *amd64*
+terraform_outputs
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
