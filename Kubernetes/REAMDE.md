@@ -23,17 +23,27 @@ curl flask-app-svc.flask.svc.cluster.local:8080
 kubectl run nginx --image nginx -n flask-app-hml
 ```
 
-> 02 - Active
+> 02 - Acess the pod
+```bash
+kubectl -n flask-app-hml exec -it nginx -- bash
+```
+
+> 03 - Active
 ```bash
 curl flask-bluegreen-active-svc.flask-app-hml.svc.cluster.local:80
 ```
 
-> 03 - Preview
+> 04 - Preview
 ```bash
 curl flask-bluegreen-preview-svc.flask-app-hml.svc.cluster.local:80
 ```
 
-> 04 - Promote the new version
+> 05 - Canary:
+```bash
+curl flask-app-canary-svc.flask-app-hml.svc.cluster.local:8080
+```
+
+> 06 - Promote the new version
 ```bash
 kubectl-argo-rollouts promote <-n namespace if exists> <name-of-rollout-deployment>
 ```
