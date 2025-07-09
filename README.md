@@ -1,7 +1,5 @@
 # ARGOCD ROLLOUTS - PROOF OF CONCEPT
 
-> ⚠️⚠️ NEW DOC ARE COMMING UP ⚠️⚠️
-
 Neste repositório você terá acesso a todas as ferramentas utilizadas para realizar a instalação, configuração e testes do ArgoCD Rollouts.
 
 **Uma breve descrição a respeito:**
@@ -25,11 +23,12 @@ Mais a frente, com uma leve ênfase, explicarei em resumo o que cada tipo de "en
 
 **PARTE 01: Introdução**
 *   * [Tecnologias utilizadas](#tecnologias-utilizadas)
+*   * [Por que o ArgoCD?](#por-que-o-argocd)
 *   * [Organização do repositório](#organização-do-repositório)
 *   * [Iniciar o Laboratorio](#como-iniciar-o-lab)
 
-## Tecnologias utilizadas
 
+## Tecnologias utilizadas
 
 <div align="center">
     <img src="https://img.shields.io/badge/Argo%20CD-1e0b3e?style=for-the-badge&logo=argo&logoColor=#d16044">
@@ -48,69 +47,42 @@ Mais a frente, com uma leve ênfase, explicarei em resumo o que cada tipo de "en
 
 </div>
 
+## Por que o ArgoCD?
+
+O ArgoCD é uma ferramenta amplamente utilizada por diversas equipes de DevOps ao redor do mundo, e é claro, é uma ferramenta aprovada pela CNCF (Graduated) e mantida pela **The Linux Foundation**.
+
+É uma ferramenta que permite a entrega contínua (CD), declarativa e open-source, baseada totalmente no GitOps para o Kubernetes. Permite automatizar a implementação de aplicações, sincronizando o estado desejado e definido em um repositório Git. Em outras palavras, o que estiver no repositório Git, o ArgoCD faz questão de garantir que ele seja aplicado dentro do Kubernetes (na questão de manifestos k8s).
+
+Alguns pontos interessantes:
+
+* Estado desejado: O Estado desejado de sua aplicação é definido em arquivos de config (Yaml, Kustomize, Helm ou outros) e são armazeandos em Git
+* Monitoramento Contínuo: O ArgoCD monitora continuamente o seu cluster Kubernetes e o repositório Git
+* Comparação e Sincronização: Compara o estado atual do seu cluster com o estado desejado do Git e identifica desvios
+* Reconciliação: Se houver desvios, o ArgoCD pode automaticamente reconciliar (sincronizar) o estado do seu cluster com o estado desejado ou, opcionalmente, permitir que um operador faça isso manualmente 
+* Git como fonte de verdade: O Git se torna a única fonte confiável para o estado da sua aplicação, facilitando o versionamento, auditoria e rollback de implantações. 
+
+Abaixo uma imagem que descreve, em resumo, o funcionamento do ArgoCD: <br>
+
+<img src="./images/ArgoCD-topology.png">
+
+<br><br>
+
+Mais adiante eu o convido a explorar mais a respeito do repositorio e por fim iniciar esse laboratório.
+
+Qualquer problema na execução ou falha do script, peço que me contate nas redes que deixarei no fim deste **README.md**, desejo um bom resto de dia e bons estudos à você! 👍
 
 ## Organização do repositório
 
-### 📁 Ansible/playbooks
+| DIRETÓRIO | OBJETIVO | DOCUMENTAÇÃO
+---| ---| ---|
+📁 Ansible/playbooks | Scripts que são utilizados para instalar e configurar os componentes da infraestrutura | [Documentação Ansible scripts](./Ansible/)
+📁 App | Código em Flask utilizado como base | [Documentação do APP](./app/)
+📁 ArgoCD | Documentações do ArgoCD como: Canary e Blue/Green deployments, usuários e roles | [Documentação ArgoCD](./ArgoCD/)
+📁 Kubernetes | Contém todos os manifestos utilizados e uma breve documentação sobre | [Documentação k8s](./Kubernetes/)
+📁 Terraform | Contém módulos do Terraform e toda infraestrutura baseada em IaC | [Documentação do Terraform](./Terraform/)
+📁🐍 Common | Contém todos os códigos/scripts em Python utilizado para providênciar de forma automática o Laboratório | [Documentação dos scripts Python](./common/)
+📁 images | Imagens utilizadas pelo repositório | ❌ 
 
-Neste diretório você encontrará scripts feitos em Ansible, esses scripts estão localizados dentro do subdiretório **playbooks**.
-
-Abaixo, você encontrará uma breve descrição de cada um
-
-NOME | OBJETIVO |
----| ---|
-**get-argocd-credentials.yml** | Responsável por obter as credenciais do ArgoCD e salvar em um arquivo local chamado **argocd_credentials.txt**
-**install-argocd.yml** | Instala o ArgoCD dentro do Cluster Kubernetes
-**install-ingress-nginx.yml** | Instala o Ingress-nginx dentro do Cluster Kubernetes
-**install-rollouts-cli.yml** | Instala o Argo Rollouts CLI no **WSL ou Linux**
-**install-rollouts.yml** | Instala o Argo Rollouts no Cluster Kubernetes 
-
-### 📁 ArgoCD
-
-O Diretório do ArgoCD é responsável por conter manifestos e documentações de como realizar/simular os ambientes de **canary** e **blue-green** dentro do ArgoCD, além disso, contém instruções de como configurar **usuários**, **roles**, **adicionar clusters kubernetes** e outros.
-
-Abaixo uma breve descrição de cada item dentro do diretório
-
-NOME | OBJETIVO |
----| ---|
-📁 blue-green | Diretório com manifestos e documentação a respeito de como realizar o **Blue-green**
-📁 canary-and-rollback | Diretório com manifestos e documentação sobre o **Canary deploy & Rollback**
-📁 pipeline | Diretório que contém a topologia da Pipeline utiliada pelo **GitHub Actions**
-📁 projects-management | Diretório que contém a documentação sobre gerenciamento de projetos no ArgoCD
-📁 user-management | Diretório que contém uma documentação a respeito do gerenciamento de usuários e permissões
-📃 argocd-in.yml | Arquivo de Ingress de exemplo para expor o ArgoCD via Ingress-nginx
-ℹ️ README.md | Documentação com detalhes sobre cada subdiretório dentro do diretório raiz **ArgoCD**
-
-### 📁 Terraform
-
-Diretório **core** (principal), contém todos os arquivos da infraestrutura, separados por módulos e totalmente customizável de acordo com suas preferências.
-
-> OBS: O Ambiente deste laboratório será dentro da AWS apenas.
-
-Abaixo uma breve descrição de cada item dentro do diretório
-
-NOME | OBJETIVO |
----| ---|
-📁 modules | Contém todos os módulos utiliazados pelo Terraform
-📃 main.tf | Arquivo principal com as variáveis que você pode customizar de acordo com sua preferência
-📃 outputs.tf | Variáveis que são mostradas após o Terraform ser aplicado
-📃 providers.tf | Provedor que será utilizado, neste caso **AWS**
-ℹ️ README.md | Documentação importante sobre como customizar o Terraform e outras informações
-
-### 📁🐍 Utils
-
-Neste diretório terá scripts em Python que será utilizado pelo script inicailizador **(init.py)**, portanto, **não realize nenhuma alteração dentro deste diretório**
-
-Abaixo uma descrição de cada arquivo
-
-NOME | OBJETIVO |
----| ---|
-🐍 ansible.py | Script responsável por aplicar o Ansible/playbooks
-🐍 terraform.py | Script responsável por aplicar o Terraform
-
-### 📁 Docker
-
-Contém o Dockerfile e o app, feito em Flask (Python), que será utilizado como base neste laboratório.
 
 ## Como iniciar o Lab?
 
