@@ -1,4 +1,5 @@
-# 📂 Ansible/playbooks
+<img src="../images/banner-ansible.png"> <br><br>
+
 
 ORGANIZAÇÃO DOS SCRIPTS EM: [**playbooks/**](./playbooks/)
 
