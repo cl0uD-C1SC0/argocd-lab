@@ -1,7 +1,12 @@
 import boto3
+import botocore
 import os
 
-client = boto3.client('codecommit')
+try:
+    client = boto3.client('codecommit')
+except botocore.exceptions.NoRegionError:
+    print(" ❌  Please, define AWS Region and credentials first!")
+    exit(1)
 
 def create_first_commit(repo):
     client.create_commit(
