@@ -1,4 +1,4 @@
-# ArgoCD
+# ArgoCD Users Management
 
 Index:
 * [ArgoCD Roles and Accounts Info](#argocd-roles-and-accounts-management)
