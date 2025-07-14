@@ -1,7 +1,17 @@
 import os
 import subprocess
-from shutil import rmtree
+from shutil import rmtree, which
 
+def verify_installed_tool():
+    DEFAULT_PROGRAMS=["terraform", "aws", "ansible"]
+    for program in DEFAULT_PROGRAMS:
+        if not which(program):
+            print(f" ❌  The following software wasn't found in the system")
+            print(f"        {program.capitalize()}")
+            print(" ⚠️  Install the required software and try again...\n")
+            return False
+    print(f" ✅ All softwares are ok!")
+    return True
 def change_directory(PATH):
     print(f" ℹ️  Switching directory to {PATH}")
     os.chdir(PATH)
