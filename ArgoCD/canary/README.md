@@ -1,11 +1,10 @@
+<img src="../../images/banner-canary.png"> <br><br>
+
 # Argo Rollouts: Canary Deployment
 
 Já sabemos que o Argo Rollouts é um controller do Kubernetes e uma série de CRDs (Custom Resources) que providenciam uma série de implementações (deployments) avançados e com configurações únicas em cada um.
 
-Neste guia você verá a respeito do **Canary**
-
 ⚠️ Alerta de texto grande ⚠️
-
 
 ## O que é
 
