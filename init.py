@@ -7,8 +7,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'common'))
 from common import terraform as terraform_script
 from common import ansible as ansible_script
 from common import codecommit_push as code_push
-from common import argocd
-from common import util
+from common import argocd, util
 
 # DON'T CHANGE THESE VARIABLES
 
@@ -49,7 +48,8 @@ def start_execution(user_choice, BASE_PATH, TERRAFORM_PATH, ANSIBLE_PATH, ARGO_A
         
         print("\n 🟢 INITIALIZING THE ENVINRONMENT 🟢\n")
         print(" ℹ️  Configuring the environment...")
-
+        print(" ℹ️  Checking the required programs...")
+        util.verify_installed_tool()
         terraform_script.init_terraform_configs(BASE_PATH, TERRAFORM_PATH)
         set_aws_cluster()
         argocd.init_argocd_configs(BASE_PATH, ARGO_APPS_PATH)
@@ -72,4 +72,5 @@ if __name__ == '__main__':
         print(f"Opção {value}: {option}" )
 
     user_choice = int(input("\nSELECT AN OPTION: "))
-    start_execution(user_choice, BASE_PATH, TERRAFORM_PATH, ANSIBLE_PATH, APP_PATH, ARGO_APPS_PATH)
+    start_execution(user_choice, BASE_PATH, TERRAFORM_PATH, ANSIBLE_PATH, ARGO_APPS_PATH)
+
