@@ -3,7 +3,7 @@ import subprocess
 from shutil import rmtree, which
 
 def verify_installed_tool():
-    DEFAULT_PROGRAMS=["terraform", "aws", "ansible"]
+    DEFAULT_PROGRAMS=["terraform", "aws", "ansible", "kubectl"]
     for program in DEFAULT_PROGRAMS:
         if not which(program):
             print(f" ❌  The following software wasn't found in the system")
@@ -12,6 +12,7 @@ def verify_installed_tool():
             return False
     print(f" ✅ All softwares are ok!")
     return True
+
 def change_directory(PATH):
     print(f" ℹ️  Switching directory to {PATH}")
     os.chdir(PATH)
@@ -23,7 +24,7 @@ def create_directory(DIR_NAME):
 
 def remove_file(PATH):
     print(f" ℹ️  Removing the following file: {PATH}")
-    os.rmdir(PATH)
+    os.remove(PATH)
     print(f" ✅ Sucessful to remove the following file: {PATH}")
 
 def remove_directory(PATH):
