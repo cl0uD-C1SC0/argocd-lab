@@ -7,7 +7,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'common'))
 from common import terraform as terraform_script
 from common import ansible as ansible_script
 from common import codecommit_push as code_push
-from common import argocd, util
+from common import argocd, util, undo_environment
 
 # DON'T CHANGE THESE VARIABLES
 
@@ -62,6 +62,7 @@ def start_execution(user_choice, BASE_PATH, TERRAFORM_PATH, ANSIBLE_PATH, ARGO_A
         return "Environment created"
     elif user_choice == 0:
         init_time(message="Deleting")
+        undo_environment.init_delete_environment(BASE_PATH)
         calc_execution_time()
         return "Environment Deleted"
     print(" ❌  Invalid Option, try again...")
