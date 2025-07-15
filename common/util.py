@@ -22,10 +22,13 @@ def create_directory(DIR_NAME):
     os.mkdir(DIR_NAME)
     print(f" ✅  Successful to create: {DIR_NAME}")
 
-def remove_file(PATH):
-    print(f" ℹ️  Removing the following file: {PATH}")
-    os.remove(PATH)
-    print(f" ✅ Sucessful to remove the following file: {PATH}")
+def remove_file(FILE):
+    try:
+        print(f" ℹ️  Removing the following file: {FILE}")
+        os.remove(FILE)
+        print(f" ✅ Sucessful to remove the following file: {FILE}")
+    except FileNotFoundError:
+        print(f" ❌  The following file {FILE} not found to be removed...")
 
 def remove_directory(PATH):
     rmtree(PATH)
