@@ -62,7 +62,7 @@ def start_execution(user_choice, BASE_PATH, TERRAFORM_PATH, ANSIBLE_PATH, ARGO_A
         return "Environment created"
     elif user_choice == 0:
         init_time(message="Deleting")
-        undo_environment.init_delete_environment(BASE_PATH)
+        undo_environment.init_delete_environment(BASE_PATH, TERRAFORM_PATH)
         calc_execution_time()
         return "Environment Deleted"
     print(" ❌  Invalid Option, try again...")
