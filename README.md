@@ -86,6 +86,8 @@ Qualquer problema na execução ou falha do script, peço que me contate nas red
 
 ## Como iniciar o Lab?
 
+⌚️ Tempo de execução para criar: 13 minutos
+
 O Laboratório **"roda"** interiamente dentro do ambiente **AWS** e será necessário algumas permissões listadas abaixo. 
 
 > Não utilize a conta **ROOT** ou em **Ambientes produtivos**, não me responsabilizo por faturas ou danos causados pela execução do laboratório, **fica totalmente por sua conta e risco**!
@@ -114,6 +116,8 @@ O Laboratório **"roda"** interiamente dentro do ambiente **AWS** e será necess
     - Criar CodeCommit
     - Criar Roles no IAM para o AWS EKS
     - Criar um Elastic Container Registry (AWS ECR)
+
+
 
 **02 - Instale as dependências**
 ```bash
@@ -150,7 +154,7 @@ SELECT AN OPTION: 1
 
 > OBS2: Não interrompa a execução do Script
 
-> OBS3: Atente-se a execução do Script, na instalação do Argo Rollouts CLI será necessário privilégios **sudo**
+> OBS3 - ETAPA MANUAL: Atente-se a execução do Script, na instalação do Argo Rollouts CLI será necessário privilégios **sudo**
 
 
 
