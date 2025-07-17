@@ -75,7 +75,7 @@ Qualquer problema na execução ou falha do script, peço que me contate nas red
 
 | DIRETÓRIO | OBJETIVO | DOCUMENTAÇÃO
 ---| ---| ---|
-📁 Ansible/playbooks | Scripts que são utilizados para instalar e configurar os componentes da infraestrutura | [Documentação Ansible scripts](./Ansible/)
+📁 Ansible | Scripts, localizado dentro do diretório playbooks/. São utilizados para instalar e configurar o laboratório | [Documentação Ansible](./Ansible/)
 📁 App | Código em Flask utilizado como base | [Documentação do APP](./app/)
 📁 ArgoCD | Documentações do ArgoCD como: Canary e Blue/Green deployments, usuários e roles | [Documentação ArgoCD](./ArgoCD/)
 📁 Kubernetes | Contém todos os manifestos utilizados e uma breve documentação sobre | [Documentação k8s](./Kubernetes/)
