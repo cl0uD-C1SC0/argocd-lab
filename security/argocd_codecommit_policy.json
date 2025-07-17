@@ -1,0 +1,71 @@
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "AllowCreateRepository",
+			"Effect": "Allow",
+			"Action": "codecommit:CreateRepository",
+			"Resource": "*",
+			"Condition": {
+				"StringEqualsIfExists": {
+					"aws:RequestTag/Name": [
+						"flask-app",
+						"flask-app-bluegreen",
+						"flask-app-canary"
+					]
+				}
+			}
+		},
+		{
+			"Sid": "AllowSomeCodeCommitOperations",
+			"Effect": "Allow",
+			"Action": [
+				"codecommit:CreateBranch",
+				"codecommit:ListBranches",
+				"codecommit:TagResource",
+				"codecommit:GitPull",
+				"codecommit:DeleteRepository",
+				"codecommit:PutFile",
+				"codecommit:CreateCommit",
+				"codecommit:GetFile",
+				"codecommit:ListFileCommitHistory",
+				"codecommit:GetCommit",
+				"codecommit:GetCommitHistory",
+				"codecommit:GetRepository",
+				"codecommit:GetBranch",
+				"codecommit:GitPush",
+				"codecommit:DeleteFile",
+				"codecommit:DeleteBranch"
+			],
+			"Resource": [
+				"arn:aws:codecommit:*:<ACCOUNT_ID>:flask-app",
+				"arn:aws:codecommit:*:<ACCOUNT_ID>:flask-app-bluegreen",
+				"arn:aws:codecommit:*:<ACCOUNT_ID>:flask-app-canary"
+			]
+		},
+		{
+			"Sid": "AllowListRepoandTags",
+			"Effect": "Allow",
+			"Action": [
+                "codecommit:ListRepositories",
+                "codecommit:ListTagsForResource"
+            ],
+			"Resource": [
+				"*",
+				"arn:aws:codecommit:*:<ACCOUNT_ID>:flask-app-canary",
+				"arn:aws:codecommit:*:<ACCOUNT_ID>:flask-app",
+				"arn:aws:codecommit:*:<ACCOUNT_ID>:flask-app-bluegreen"
+			]
+		},
+        {
+            "Sid": "AllowIAMToCreateCodeCommitCred",
+            "Effect": "Allow",
+            "Action": [
+                "iam:CreateServiceSpecificCredential",
+                "iam:ListServiceSpecificCredentials",
+                "iam:DeleteServiceSpecificCredential"
+            ],
+            "Resource": "arn:aws:iam::<ACCOUNT_ID>:user/*"
+        }
+	]
+}
