@@ -81,18 +81,18 @@ Qualquer problema na execução ou falha do script, peço que me contate nas red
 📁 Kubernetes | Contém todos os manifestos utilizados e uma breve documentação sobre | [Documentação k8s](./Kubernetes/)
 📁 Terraform | Contém módulos do Terraform e toda infraestrutura baseada em IaC | [Documentação do Terraform](./Terraform/)
 📁🐍 Common | Contém todos os códigos/scripts em Python utilizado para providênciar de forma automática o Laboratório | [Documentação dos scripts Python](./common/)
+📁🔑 security | Permissões que você precisa ter na sua conta AWS | [Documentação das permissões](./security/) 
 📁 images | Imagens utilizadas pelo repositório | ❌ 
 
 
 ## Como iniciar o Lab?
 
-⌚️ Tempo de execução para criar: 13 minutos
+⌚️ **Tempo de execução para criar: 13 minutos**
 
 O Laboratório **"roda"** interiamente dentro do ambiente **AWS** e será necessário algumas permissões listadas abaixo. 
 
-> Não utilize a conta **ROOT** ou em **Ambientes produtivos**, não me responsabilizo por faturas ou danos causados pela execução do laboratório, **fica totalmente por sua conta e risco**!
 
-**01 - REQUISITOS MÍNIMOS**
+**REQUISITOS MÍNIMOS**
 
 - Sistema operacional: Linux (Preferencialmente: Ubuntu/Debian)
 - Python3.x
@@ -100,24 +100,21 @@ O Laboratório **"roda"** interiamente dentro do ambiente **AWS** e será necess
 - AWS Configure **(Credenciais previamente configurada)**
 - Ansible
 - Terraform
-- **AWS Account com as permissões**: <br>
-    - Criar VPC com:
-        - Subnet
-        - Internet Gateway
-        - Elastic IP
-        - NAT Gateway
-        - Route & Route Tables
-        - Associação de Subnet
-        - Gerenciamento da VPC como um todo
-    - Criar um Cluster EKS & Associar um IAM user
-    - Criar Node Group com instâncias EC2
-    - Criar CodePipeline
-    - Criar CodeBuild
-    - Criar CodeCommit
-    - Criar Roles no IAM para o AWS EKS
-    - Criar um Elastic Container Registry (AWS ECR)
+- **Permissões**: [CLIQUE AQUI PARA VISUALIZAR AS PERMISSÕES NECESSÁRIAS](./security/)
 
-
+**01 - Configure a variável de ambiente: AWS_USER_NAME**
+```bash
+# LINUX
+export AWS_USER_NAME="<YOU_AWS_USER_NAME>"
+```
+```powershell
+# Powershell
+$Env:AWS_USER_NAME = "<YOUR_AWS_USER_NAME>"
+```
+```cmd
+REM cmd/command prompt 
+set AWS_USER_NAME=<YOUR_AWS_USER_NAME>
+```
 
 **02 - Instale as dependências**
 ```bash
@@ -131,8 +128,6 @@ python3 -m pip install requirements.txt
 **03 - INICIALIZE O SCRIPT**
 ```bash
 python init.py
-# ou
-python3 init.py
 ```
 
 **04 - ESCOLHA A OPÇÃO 01**
@@ -144,19 +139,23 @@ SELECT AN OPTION: 1
 ```
 
 * Aguarde até a execução total do script, atente-se aos **outputs** (saídas).
-* Exemplo de execução do script: [CLIQUE AQUI](./images/script-exec.png)
+
 
 <br>
 
-**‼️PONTOS IMPORTANTES‼️**
 
-> OBS: Atente-se as permissões utilizadas para realizar a criação deste laboratório
+<div align="center">
 
-> OBS2: Não interrompa a execução do Script
+🚨🚨🚨
 
-> OBS3 - ETAPA MANUAL: Atente-se a execução do Script, na instalação do Argo Rollouts CLI será necessário privilégios **sudo**
+████████████████████████████████████████████████████████ ██ ██ ██ 🚨
+<li>Atente-se as permissões utilizadas para a realização do laboratório</li> 
+<li>Atente-se na etapa manual do script, requisitará acesso elevado no Linux!</li>
+<li>Script verboso, significa que qualquer erro será mostrado no terminal, portanto, não o interrompa</li> <br>
 
+🚨 ██ ██ ██ ████████████████████████████████████████████████████████
 
+<div>
 
 ---
 <br>
