@@ -1,0 +1,72 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowCreateCluster",
+            "Effect": "Allow",
+            "Action": "eks:CreateCluster",
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestTag/Name": "argocd-poc-cluster"
+                }
+            }
+        },
+        {
+            "Sid": "AllowSomeEKSCalls",
+            "Effect": "Allow",
+            "Action": [
+                "eks:ListAssociatedAccessPolicies",
+                "eks:DisassociateAccessPolicy",
+                "eks:AssociateAccessPolicy",
+                "eks:CreateAddon",
+                "eks:CreateAccessEntry",
+                "eks:CreateNodegroup",
+                "eks:DescribeAccessEntry",
+                "eks:DescribeAddon"
+            ],
+            "Resource": [
+                "arn:aws:eks:*:<ACCOUNT_ID>:cluster/argocd-poc-cluster",
+                "arn:aws:eks:*:<ACCOUNT_ID>:access-entry/argocd-poc-cluster/*/*/*/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:podidentityassociation/argocd-poc-cluster/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:addon/argocd-poc-cluster/*/*"
+            ]
+        },
+        {
+            "Sid": "AllowDeleteEKS",
+            "Effect": "Allow",
+            "Action": [
+                "eks:DeleteAccessEntry",
+                "eks:DeleteCluster",
+                "eks:DescribeNodegroup",
+                "eks:DeleteAddon",
+                "eks:DeleteNodegroup",
+                "eks:DescribeCluster",
+                "eks:DescribeAccessEntry"
+            ],
+            "Resource": [
+                "arn:aws:eks:*:<ACCOUNT_ID>:cluster/argocd-poc-cluster",
+                "arn:aws:eks:*:<ACCOUNT_ID>:nodegroup/argocd-poc-cluster/*/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:access-entry/argocd-poc-cluster/*/*/*/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:podidentityassociation/argocd-poc-cluster/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:addon/argocd-poc-cluster/*/*"
+            ]
+        },
+        {
+            "Sid": "AllowTAGeksResources",
+            "Effect": "Allow",
+            "Action": "eks:TagResource",
+            "Resource": [
+                "arn:aws:eks:*:<ACCOUNT_ID>:cluster/argocd-poc-cluster",
+                "arn:aws:eks:*:<ACCOUNT_ID>:access-entry/argocd-poc-cluster/*/*/*/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:eks-anywhere-subscription/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:identityproviderconfig/argocd-poc-cluster/*/*/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:fargateprofile/argocd-poc-cluster/*/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:dashboard/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:nodegroup/argocd-poc-cluster/argocd-ndg/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:addon/argocd-poc-cluster/*/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:podidentityassociation/*/*"
+            ]
+        }
+    ]
+}
