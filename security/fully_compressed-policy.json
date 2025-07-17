@@ -1,0 +1,211 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowCreateCodeCommitRepo",
+            "Effect": "Allow",
+            "Action": "codecommit:CreateRepository",
+            "Resource": "*",
+            "Condition": {
+                "StringEqualsIfExists": {
+                    "aws:RequestTag/Name": [
+                        "flask-app",
+                        "flask-app-bluegreen",
+                        "flask-app-canary"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "AllowCreateECRRepo",
+            "Effect": "Allow",
+            "Action": "ecr:CreateRepository",
+            "Resource": "*",
+            "Condition": {
+                "StringEqualsIfExists": {
+                    "aws:RequestTag/Name": "flask-app"
+                }
+            }
+        },
+        {
+            "Sid": "GeneralPermissions1",
+            "Effect": "Allow",
+            "Action": [
+                "codecommit:CreateBranch",
+                "codecommit:ListBranches",
+                "codecommit:TagResource",
+                "codecommit:GitPull",
+                "codecommit:DeleteRepository",
+                "codecommit:PutFile",
+                "codecommit:CreateCommit",
+                "codecommit:ListTagsForResource",
+                "codecommit:GetFile",
+                "codecommit:ListFileCommitHistory",
+                "codecommit:GetCommit",
+                "codecommit:GetCommitHistory",
+                "codecommit:GetRepository",
+                "codecommit:GetBranch",
+                "codecommit:GitPush",
+                "codecommit:DeleteFile",
+                "codecommit:DeleteBranch",
+                "ecr:BatchDeleteImage",
+                "ecr:DeleteRepository",
+                "eks:TagResource",
+                "iam:DetachRolePolicy",
+                "iam:DeleteRole"
+            ],
+            "Resource": [
+                "arn:aws:codecommit:*:<ACCOUNT_ID>:flask-app",
+                "arn:aws:codecommit:*:<ACCOUNT_ID>:flask-app-bluegreen",
+                "arn:aws:codecommit:*:<ACCOUNT_ID>:flask-app-canary",
+                "arn:aws:ecr:*:<ACCOUNT_ID>:repository/flask-app",
+                "arn:aws:eks:*:<ACCOUNT_ID>:cluster/argocd-poc-cluster",
+                "arn:aws:eks:*:<ACCOUNT_ID>:identityproviderconfig/argocd-poc-cluster/*/*/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:fargateprofile/argocd-poc-cluster/*/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:dashboard/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:nodegroup/argocd-poc-cluster/argocd-ndg/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:addon/argocd-poc-cluster/*/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:access-entry/argocd-poc-cluster/*/*/*/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:podidentityassociation/*/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:eks-anywhere-subscription/*",
+                "arn:aws:iam::<ACCOUNT_ID>:role/eks-argocd-ndg-role",
+                "arn:aws:iam::<ACCOUNT_ID>:role/eks-assume-role-argocd"
+            ]
+        },
+        {
+            "Sid": "GeneralPermissions2",
+            "Effect": "Allow",
+            "Action": [
+                "iam:CreateRole",
+                "ecr:ListTagsForResource",
+                "ecr:DescribeImages",
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:ListImages",
+                "ecr:DeleteRepository",
+                "ecr:PutImage",
+                "ecr:DescribeRepositories",
+                "eks:CreateNodegroup",
+                "eks:DescribeAccessEntry",
+                "eks:DescribeAddon",
+                "eks:AssociateAccessPolicy",
+                "eks:ListAssociatedAccessPolicies",
+                "eks:DisassociateAccessPolicy",                
+                "eks:CreateAddon",
+                "eks:CreateAccessEntry"
+            ],
+            "Resource": [
+                "arn:aws:iam::*:role/eks-assume-role-argocd",
+                "arn:aws:iam::*:role/eks-argocd-ndg-role",
+                "arn:aws:ecr:*:<ACCOUNT_ID>:repository/flask-app",
+                "arn:aws:eks:*:<ACCOUNT_ID>:cluster/argocd-poc-cluster",
+                "arn:aws:eks:*:<ACCOUNT_ID>:podidentityassociation/argocd-poc-cluster/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:addon/argocd-poc-cluster/*/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:access-entry/argocd-poc-cluster/*/*/*/*"
+            ]
+        },
+        {
+            "Sid": "GeneralPermissions3",
+            "Effect": "Allow",
+            "Action": [
+                "ecr:TagResource",
+                "iam:CreateServiceSpecificCredential",
+                "iam:ListServiceSpecificCredentials",
+                "iam:DeleteServiceSpecificCredential",
+                "eks:DescribeNodegroup",
+                "eks:DeleteAccessEntry",
+                "eks:DeleteCluster",
+                "eks:DeleteAddon",
+                "eks:DeleteNodegroup",
+                "eks:DescribeCluster",
+                "eks:DescribeAccessEntry"
+            ],
+            "Resource": [
+                "arn:aws:ecr:*:<ACCOUNT_ID>:repository/flask-app",
+                "arn:aws:iam::<ACCOUNT_ID>:user/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:cluster/argocd-poc-cluster",
+                "arn:aws:eks:*:<ACCOUNT_ID>:nodegroup/argocd-poc-cluster/*/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:podidentityassociation/argocd-poc-cluster/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:addon/argocd-poc-cluster/*/*",
+                "arn:aws:eks:*:<ACCOUNT_ID>:access-entry/argocd-poc-cluster/*/*/*/*"
+            ]
+        },
+        {
+            "Sid": "GeneralPermissions4",
+            "Effect": "Allow",
+            "Action": "eks:CreateCluster",
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestTag/Name": "argocd-poc-cluster"
+                }
+            }
+        },
+        {
+            "Sid": "GeneralPermissions5",
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": [
+                "arn:aws:iam::<ACCOUNT_ID>:role/eks-assume-role-argocd",
+                "arn:aws:iam::<ACCOUNT_ID>:role/eks-argocd-ndg-role"
+            ],
+            "Condition": {
+                "StringEqualsIfExists": {
+                    "iam:PassedToService": [
+                        "ec2.amazonaws.com",
+                        "eks.amazonaws.com"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "GeneralPermissions6",
+            "Effect": "Allow",
+            "Action": [
+                "ecr:DescribeRegistry",
+                "iam:AttachRolePolicy",
+                "iam:GetRole",
+                "iam:ListInstanceProfilesForRole",
+                "iam:ListAttachedRolePolicies",
+                "iam:ListRolePolicies",
+                "ec2:DescribeAddressesAttribute",
+                "ec2:DisassociateAddress",
+                "ec2:DeleteSubnet",
+                "ec2:DescribeAddresses",
+                "ec2:CreateNatGateway",
+                "ec2:CreateVpc",
+                "ec2:AttachInternetGateway",
+                "ec2:DescribeVpcAttribute",
+                "ec2:DeleteRouteTable",
+                "ec2:ModifySubnetAttribute",
+                "ec2:AssociateRouteTable",
+                "ec2:DescribeInternetGateways",
+                "ec2:DescribeNetworkInterfaces",
+                "ec2:CreateRoute",
+                "ec2:CreateInternetGateway",
+                "ec2:DeleteInternetGateway",
+                "ec2:DescribeRouteTables",
+                "ec2:ReleaseAddress",
+                "ec2:CreateTags",
+                "ec2:DeleteRoute",
+                "ec2:CreateRouteTable",
+                "ecr:GetAuthorizationToken",
+                "ec2:DetachInternetGateway",
+                "ec2:DescribeNatGateways",
+                "ec2:DisassociateRouteTable",
+                "ec2:AllocateAddress",
+                "ec2:DescribeVpcs",
+                "ec2:DeleteNatGateway",
+                "ec2:DeleteVpc",
+                "ec2:CreateSubnet",
+                "ec2:DescribeSubnets",
+                "codecommit:ListRepositories"
+            ],
+            "Resource": [
+                "*",
+                "arn:aws:codecommit:*:<ACCOUNT_ID>:flask-app-canary",
+                "arn:aws:codecommit:*:<ACCOUNT_ID>:flask-app",
+                "arn:aws:codecommit:*:<ACCOUNT_ID>:flask-app-bluegreen"
+            ]
+        }
+    ]
+}
