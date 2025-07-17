@@ -1,7 +1,7 @@
 variable "vpc_name" {
     description = "VPC Name"
     type = string
-    default = "tf-vpc"
+    default = "argocd-vpc"
 }
 
 variable "vpc_cidr" {
@@ -13,13 +13,13 @@ variable "vpc_cidr" {
 variable "vpc_internetgateway_name" {
   description = "Internet Gateway name"
   type = string
-  default = "tf-igw"
+  default = "argocd-igw"
 }
 
 variable "vpc_natgateway_name" {
   description = "NatGateway name"
   type = string
-  default = "tf-natgw"
+  default = "argocd-natgw"
 }
 
 ###########################
@@ -28,7 +28,7 @@ variable "vpc_natgateway_name" {
 variable "vpc_pubsubnet_1-name" {
   description = "Name of Pubsubnet 1"
   type = string
-  default = "tf-pub1a"
+  default = "pub-argocd-1a"
 }
 
 variable "vpc_pubsubnet_1-cidr" {
@@ -49,7 +49,7 @@ variable "vpc_pubsubnet_1-az" {
 variable "vpc_pubsubnet_2-name" {
   description = "Name of Pubsubnet 2"
   type = string
-  default = "tf-pub2b"
+  default = "pub-argocd-1b"
 }
 
 variable "vpc_pubsubnet_2-cidr" {
@@ -70,7 +70,7 @@ variable "vpc_pubsubnet_2-az" {
 variable "vpc_privsubnet_1-name" {
   description = "Name of Privsubnet 1"
   type = string
-  default = "tf-priv1a"
+  default = "priv-argocd-1a"
 }
 
 variable "vpc_privsubnet_1-cidr" {
@@ -91,7 +91,7 @@ variable "vpc_privsubnet_1-az" {
 variable "vpc_privsubnet_2-name" {
   description = "Name of Privsubnet 2"
   type = string
-  default = "tf-priv2b"
+  default = "priv-argocd-1b"
 }
 
 variable "vpc_privsubnet_2-cidr" {
@@ -110,18 +110,18 @@ variable "vpc_privsubnet_2-az" {
 variable "elastic_ip-name" {
   description = "Name of Elastic IP for NAT Gateway"
   type = string
-  default = "eip-argocd"
+  default = "argocd-eip-natgw"
 }
 
 # Route table names
 variable "rtb_pub-name" {
   description = "Name of Pub RTB"
   type = string
-  default = "pub-rtb-tf"
+  default = "pub-rtb-argocd"
 }
 
 variable "rtb_priv-name" {
   description = "Name of Priv RTB"
   type = string
-  default = "priv-rtb-tf"
+  default = "priv-rtb-argocd"
 }
