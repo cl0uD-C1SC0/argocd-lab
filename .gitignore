@@ -1,7 +1,6 @@
 .vscode
 Terraform/.terraform*
 Terraform/*.tfstate*
-*.json
 *.txt
 __init__.py
 *amd64*
