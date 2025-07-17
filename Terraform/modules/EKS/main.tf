@@ -14,6 +14,10 @@ resource "aws_eks_cluster" "eks-argocd" {
     subnet_ids = var.pubsubnet
     endpoint_public_access = true
   }
+
+  tags = {
+    Name = "argocd-poc-cluster"
+  }
 }
 
 resource "aws_eks_node_group" "eks-ndg-argocd" {
