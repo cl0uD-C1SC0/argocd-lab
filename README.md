@@ -1,4 +1,4 @@
-# ARGOCD ROLLOUTS - PROOF OF CONCEPT
+# ArgoCD and Argo Rollouts - A Complete Laboratory Environment
 
 Neste repositório você terá acesso a todas as ferramentas utilizadas para realizar a instalação, configuração e testes do ArgoCD Rollouts.
 
