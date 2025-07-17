@@ -28,7 +28,7 @@ def remove_file(FILE):
         os.remove(FILE)
         print(f" ✅ Sucessful to remove the following file: {FILE}")
     except FileNotFoundError:
-        print(f" ❌  The following file {FILE} not found to be removed...")
+        print(f" ❌ The following file {FILE} not found to be removed...")
 
 def remove_directory(PATH):
     rmtree(PATH)
