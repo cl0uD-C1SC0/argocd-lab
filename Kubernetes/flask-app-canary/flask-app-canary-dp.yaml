@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: flask-app-canary-container
-          image: 590183702475.dkr.ecr.us-east-1.amazonaws.com/flask-app:v1 
+          image: <ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/flask-app:v1 
           ports:
             - containerPort: 8080
           readinessProbe:

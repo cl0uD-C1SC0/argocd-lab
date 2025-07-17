@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: flask-app-bluegreen-container
-          image: 058264299520.dkr.ecr.us-east-1.amazonaws.com/flask-app-bluegreen:v3
+          image: <ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/flask-app-bluegreen:v1
           ports:
             - containerPort: 8080
   strategy:
