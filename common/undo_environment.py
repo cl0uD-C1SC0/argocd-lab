@@ -1,8 +1,31 @@
 from util import run_command, change_directory, remove_directory, remove_file
+import os
+import re
 
+def delete_credentials_argo_apps(ARGO_APPS_PATH):
+    change_directory(ARGO_APPS_PATH)
+    for argo_app in os.listdir():
+        with open(argo_app, 'r') as file:
+            print(f" ℹ️  Removing CodeCommit credentials of {argo_app}")
+            content = file.read()
+        
+        content = re.sub(r'(username:\s*)".*?"', r'\1{git-username}', content)
+        content = re.sub(r'(password:\s*)".*?"', r'\1{git-password}', content)
+
+        with open(argo_app, 'w') as file:
+            file.write(content)
+
+    print(" ✅ Successful")
+
+def delete_k8s_resources():
+    print(" ℹ️  Deleting k8s resources")
+    namespaces_to_delete = ["argocd", "ingress-nginx", "flask-app-hml"]
+    for ns in namespaces_to_delete:
+        print(f" ℹ️  Deleting the entire resources in the following namespace: {ns}")
+        run_command(f"kubectl delete namespace {ns}", shell=True)
+        print(f" ✅ Successful to remove the entire {ns} namespace") 
 
 def delete_tf_files():
-    
     print(" ℹ️  Removing Terraform Files...")
     files_to_delete = [".terraform.lock.hcl", "terraform.tfstate", "terraform.tfstate.backup"]
     
@@ -23,8 +46,10 @@ def destroy_terraform_env():
     print(result)
     print(" ✅ Terraform Environment has been deleted!")
 
-def init_delete_environment(BASE_PATH, TERRAFORM_PATH):
+def init_delete_environment(BASE_PATH, TERRAFORM_PATH, ARGO_APPS_PATH):
+    delete_credentials_argo_apps(ARGO_APPS_PATH)
     change_directory(TERRAFORM_PATH)
+    delete_k8s_resources()
     destroy_terraform_env()
     delete_tf_files()
     delete_output_files(BASE_PATH)
