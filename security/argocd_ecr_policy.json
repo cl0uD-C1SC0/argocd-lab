@@ -1,0 +1,54 @@
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "AllowCreateECR",
+			"Effect": "Allow",
+			"Action": "ecr:CreateRepository",
+			"Resource": "*",
+			"Condition": {
+				"StringEqualsIfExists": {
+					"aws:RequestTag/Name": "flask-app"
+				}
+			}
+		},
+		{
+			"Sid": "AllowECRmodifications",
+			"Effect": "Allow",
+			"Action": [
+				"ecr:GetDownloadUrlForLayer",
+				"ecr:DescribeImages",
+				"ecr:DescribeRepositories",
+				"ecr:ListTagsForResource",
+				"ecr:ListImages",
+				"ecr:DeleteRepository",
+				"ecr:PutImage"
+			],
+			"Resource": "arn:aws:ecr:*:<ACCOUNT_ID>:repository/flask-app"
+		},
+		{
+			"Sid": "AllowDescribeRegistryAndLogin",
+			"Effect": "Allow",
+			"Action": [
+				"ecr:DescribeRegistry",
+				"ecr:GetAuthorizationToken"
+			],
+			"Resource": "*"
+		},
+		{
+			"Sid": "AllowTagResource",
+			"Effect": "Allow",
+			"Action": "ecr:TagResource",
+			"Resource": "arn:aws:ecr:*:<ACCOUNT_ID>:repository/flask-app"
+		},
+		{
+			"Sid": "AllowBatchandDeleteRepo",
+			"Effect": "Allow",
+			"Action": [
+				"ecr:BatchDeleteImage",
+				"ecr:DeleteRepository"
+			],
+			"Resource": "arn:aws:ecr:*:<ACCOUNT_ID>:repository/flask-app"
+		}
+	]
+}
