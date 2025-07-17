@@ -1,0 +1,53 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowPassRole",
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": [
+                "arn:aws:iam::<ACCOUNT_ID>:role/eks-assume-role-argocd",
+                "arn:aws:iam::<ACCOUNT_ID>:role/eks-argocd-ndg-role"
+            ],
+            "Condition": {
+                "StringEqualsIfExists": {
+                    "iam:PassedToService": [
+                        "ec2.amazonaws.com",
+                        "eks.amazonaws.com"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "AllowGetListandAttachIAM",
+            "Effect": "Allow",
+            "Action": [
+                "iam:GetRole",
+                "iam:ListInstanceProfilesForRole",
+                "iam:ListAttachedRolePolicies",
+                "iam:AttachRolePolicy",
+                "iam:ListRolePolicies",
+                "iam:DeleteRole"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "AllowDetachRole",
+            "Effect": "Allow",
+            "Action": "iam:DetachRolePolicy",
+            "Resource": [
+                "arn:aws:iam::<ACCOUNT_ID>:role/eks-argocd-ndg-role",
+                "arn:aws:iam::<ACCOUNT_ID>:role/eks-assume-role-argocd"
+            ]
+        },
+        {
+            "Sid": "AllowCreateIamRole",
+            "Effect": "Allow",
+            "Action": "iam:CreateRole",
+            "Resource": [
+                "arn:aws:iam::*:role/eks-assume-role-argocd",
+                "arn:aws:iam::*:role/eks-argocd-ndg-role"
+            ]
+        }
+    ]
+}
