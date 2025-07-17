@@ -1,19 +1,19 @@
 variable "eks_cluster-name" {
   description = "EKS Cluster Name"
   type = string
-  default = "tf-eks-cluster"
+  default = "argocd-poc-cluster"
 }
 
 variable "eks_cluster_ndg-name" {
   description = "EKS Nodegroup Name"
   type = string
-  default = "tf-ndg"
+  default = "argocd-ndg"
 }
 
 variable "eks_cluster_iam-name" {
   description = "EKS Cluster IAM AmazonEKSClusterPolicy"
   type = string
-  default = "tf-AmazonEKSClusterPolicy"
+  default = "AmazonEKSClusterPolicy-argocd"
 }
 
 variable "vpc_id" {}
