@@ -122,9 +122,9 @@ module "codecommit" {
 ```bash
 pip install -r requirements.txt
 # ou
-python -m pip install requirements.txt
+python -m pip install -r requirements.txt
 # ou
-python3 -m pip install requirements.txt
+python3 -m pip install -r requirements.txt
 ```
 
 **03 - INICIALIZE O SCRIPT**
