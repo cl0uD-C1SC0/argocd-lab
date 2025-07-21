@@ -2,19 +2,17 @@
 
 # ArgoCD and Argo Rollouts - SandBox Environment
 
-Neste repositório você terá acesso a todas as ferramentas utilizadas para realizar a instalação, configuração e testes do ArgoCD Rollouts.
+Bem-vindo ao ArgoCD & Argo Rollouts Lab!
 
-**Uma breve descrição a respeito:**
+Um laboratório que trará documentações completas a respeito do uso do ArgoCD e principalmente, o carro chefe, o Argo Rollouts!
 
-O ArgoCD Rollouts, ou melhor, Argo Rollouts é um controler e um conjunto de recursos customizados (Custom resources) do Kubernetes que permite a entregá progressiva de aplicações no Kubernetes.
+Está 100% automatizado e roda dentro do ambiente da AWS! É importante ressaltar que, o repositório inteiro conta com documentações em PT-BR feitas para que você aprenda de uma vez por todas o uso dessas duas ferramentas extremamente úteis para um ambiente totalmente DevOps.
 
-Ele extende o recurso nativo do Kubernetes (Deployments) com um recurso avançado de Rollout, neste repositório vamos trabalhar com "três", sendo eles:
+Conta com recursos e tecnologias bem interessantes, vale dar uma olhada nessa documentação depois: [ArgoCD - Introdução](./ArgoCD/), mas só depois em!
 
-* **Canary**
-* **Rollback**
-* **Blue/Green**
+Qualquer problema ou dúvidas na execução do laboratório, fico a disposição via LinkedIn (Link no final do README.md)!
 
-Mais a frente, com uma leve ênfase, explicarei em resumo o que cada tipo de "entrega" faz. <br><br>
+Bons estudos!
 
 <div align="center">
     O Laboratório foi feito utilizando o AWS Sandbox da:
@@ -120,11 +118,8 @@ module "codecommit" {
 
 **02 - Instale as dependências**
 ```bash
-pip install -r requirements.txt
-# ou
 python -m pip install -r requirements.txt
-# ou
-python3 -m pip install -r requirements.txt
+ansible-galaxy collection install -r requirements.yml
 ```
 
 **03 - INICIALIZE O SCRIPT**
@@ -142,6 +137,10 @@ SELECT AN OPTION: 1
 
 * Aguarde até a execução total do script, atente-se aos **outputs** (saídas).
 
+**05 - Após a criação do ambiente ser finalizada, automaticamente o context do kubectl é configurado**
+```bash
+kubectl config get-contexts
+```
 
 <br>
 
