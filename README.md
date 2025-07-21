@@ -1,4 +1,6 @@
-# ArgoCD and Argo Rollouts - A Complete Laboratory Environment
+<div align="center"><img src="./images/sandbox-logo.png" width=250px></div><br><br>
+
+# ArgoCD and Argo Rollouts - SandBox Environment
 
 Neste repositório você terá acesso a todas as ferramentas utilizadas para realizar a instalação, configuração e testes do ArgoCD Rollouts.
 
