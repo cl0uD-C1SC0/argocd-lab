@@ -5,6 +5,7 @@
 **ÍNDICE**
 
 * [1 - Estrutura do diretório](#estrutura-do-diretório)
+* [2 - O que é Argo Rollouts?](#o-que-é-argo-rollouts)
 * [2 - Comandos gerais no ArgoCD CLI](#comandos-gerais-argocd-cli)
 * [3 - O que é Canary Deployment](./canary/README.md)
 * [4 - O que é Blue/Green Deployment](./blue-green/README.md)
@@ -25,6 +26,12 @@ NOME | OBJETIVO | DOCUMENTAÇÃO
 📁 user-management | Diretório que contém uma documentação a respeito do gerenciamento de usuários e permissões | [Documentação sobre Users](./user-management/README.md)
 📃 argocd-in.yml | Arquivo de Ingress de exemplo para expor o ArgoCD via Ingress-nginx | ❌
 ℹ️ README.md | Documentação com detalhes sobre cada subdiretório dentro do diretório raiz **ArgoCD** | ❌
+
+## O que é Argo Rollouts?
+
+Argo Rollouts é um controlador/extensão e conjunto de ferramentas do Kubernetes que fornece **recursos avançados** de implantação para aplicativos (deployments), como estratégias de **Blue/Green** e **Canary**, além de uma análise e entregra progressiva.
+
+Permite que você faça/execute atualizações de forma controlada e gradativa, minimizando e muito os riscos de Downtime e problemas para os usuários.
 
 ## Comandos gerais ArgoCD CLI:
 
