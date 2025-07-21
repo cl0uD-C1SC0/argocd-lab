@@ -104,19 +104,19 @@ O Laboratório **"roda"** interiamente dentro do ambiente **AWS** e será necess
 - Terraform
 - **Permissões**: [CLIQUE AQUI PARA VISUALIZAR AS PERMISSÕES NECESSÁRIAS](./security/)
 
-**01 - Configure a variável de ambiente: AWS_USER_NAME**
-```bash
-# LINUX
-export AWS_USER_NAME="<YOU_AWS_USER_NAME>"
+**01 - Configure o usuárino no arquivo terraform
+
+> Troque o valor de YOUR_AWS_USER pelo o seu Usuario AWS utilizado durante o laboratorio
+
+```terraform
+module "codecommit" {
+    source = "./modules/CodeCommit"
+
+    codecommit-credentials-user = "YOUR_AWS_USER" # Default: argocd_user
+
+}
 ```
-```powershell
-# Powershell
-$Env:AWS_USER_NAME = "<YOUR_AWS_USER_NAME>"
-```
-```cmd
-REM cmd/command prompt 
-set AWS_USER_NAME=<YOUR_AWS_USER_NAME>
-```
+[CLIQUE AQUI - ARQUIVO PARA MODIFICAR](./Terraform/main.tf)
 
 **02 - Instale as dependências**
 ```bash
