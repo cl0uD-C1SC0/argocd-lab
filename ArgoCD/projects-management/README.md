@@ -4,6 +4,8 @@ Os projetos no ArgoCD são uma forma de organização para facilitar o gerenciam
 
 Cada projeto tem seus próprios repositórios, clusters de Kubernetes, permissões, janelas de sicronização e eventos, veja abaixo em detalhes
 
+⚠️ DOCUMENTAÇÃO AINDA EM CONSTRUÇÃO ⚠️
+
 ### Como criar
 
 - 01 - Acesse o ArgoCD
