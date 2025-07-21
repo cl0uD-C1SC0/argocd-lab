@@ -32,24 +32,28 @@ jobs:
           curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
   init-terraform:
     runs-on: ubuntu-latest
+    needs: install-packages
     steps:
       - uses: actions/checkout@v4
       - name: Run Terraform Init
         run: cd ./Terraform && terraform init
   verify-terraform-lint:
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-latest
+    needs: install-packages
     steps:
       - uses: actions/checkout@v4
       - name: Run tflint
         run: tflint --init && tflint
   verify-terraform-sec:
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-latest
+    needs: install-packages    
     steps:
       - uses: actions/checkout@v4
       - name: Run tfsec
         run: tfsec .
   verify-ansible-lint:
     runs-on: ubuntu-latest
+    needs: install-packages
     steps:
       - uses: actions/checkout@v4
       - name: Run ansible-lint
