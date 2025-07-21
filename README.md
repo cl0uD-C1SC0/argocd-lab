@@ -104,7 +104,7 @@ O Laboratório **"roda"** interiamente dentro do ambiente **AWS** e será necess
 - Terraform
 - **Permissões**: [CLIQUE AQUI PARA VISUALIZAR AS PERMISSÕES NECESSÁRIAS](./security/)
 
-**01 - Configure o usuárino no arquivo terraform
+**01 - Configure o usuárino no arquivo terraform**
 
 > Troque o valor de YOUR_AWS_USER pelo o seu Usuario AWS utilizado durante o laboratorio
 
