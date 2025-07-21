@@ -102,6 +102,8 @@ O Laboratório **"roda"** interiamente dentro do ambiente **AWS** e será necess
 - Terraform
 - **Permissões**: [CLIQUE AQUI PARA VISUALIZAR AS PERMISSÕES NECESSÁRIAS](./security/)
 
+> Utilize a permissão: security/fully_compressed-policy.json em seu ambiente para construir algo mais Least Privilege e controlado no quesito segurança
+
 **01 - Configure o usuárino no arquivo terraform**
 
 > Troque o valor de YOUR_AWS_USER pelo o seu Usuario AWS utilizado durante o laboratorio
