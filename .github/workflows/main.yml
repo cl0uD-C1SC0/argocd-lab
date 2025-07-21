@@ -27,34 +27,43 @@ jobs:
       - name: Install Infracost
         run: |
           curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
-  init-terraform:
+  test-packages:
     runs-on: ubuntu-latest
     needs: install-packages
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test Terraform
+        run: terraform --help
+      - name: Test tflint
+        run: tflint --help
+      - name: Test tfsec
+        run: tfsec --help
+  init-terraform:
+    runs-on: ubuntu-latest
+    needs: test-packages
     steps:
       - uses: actions/checkout@v4
       - name: Run Terraform Init
         run: cd ./Terraform && terraform init
-  verify-terraform-lint:
+  verify-codelinters:
     runs-on: ubuntu-latest
-    needs: install-packages
+    needs: init-terraform
     steps:
       - uses: actions/checkout@v4
-      - name: Run tflint
+      - name: Run terraform lint
         run: tflint --init && tflint
-  verify-terraform-sec:
-    runs-on: ubuntu-latest
-    needs: install-packages    
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run tfsec
+      - name: Run tfsec lint
         run: tfsec .
-  verify-ansible-lint:
-    runs-on: ubuntu-latest
-    needs: install-packages
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run ansible-lint
+      - name: Run infracost 
+        run: infracost breakdown --path . --usage-file ../infracost-usage.yml > infracost-result.txt
+      - name: Run ansible lint
         uses: ansible/ansible-lint@main
         with:
           setup_python: "true"
           working_directory: "../Ansible/playbooks"
+      - name: Upload infracost result
+        uses: actions/upload-artifact@v4
+        with:
+          name: infracost-result
+          path: infracost-result.txt
+
