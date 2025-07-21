@@ -5,7 +5,9 @@
 * [1 - Estrutura do diretório](#estrutura-do-diretório)
 * [2 - GitOps](#gitops)
 * [3 - Argo Rollouts vs k8s Deployments](#argo-rollouts-vs-k8s-deployments)
-* [4 - Comandos úteis (kubectl)](#comandos-uteis)
+* [4 - Criando POD de teste](#criando-pod-de-teste)
+* [5 - Teste Blue/Green](#teste-do-bluegreen-service)
+* [6 - Teste Canary](#teste-do-canary-service)
 
 ## Estrutura do diretório
 
@@ -37,24 +39,14 @@ Abaixo um exemplo:
 
 <br><br>
 
-## Argo Rollouts vs k8s Deployments
-
-
-
 ## Comandos uteis
 
 
-### Testando acesso aos services
+### Criando POD de teste
 > 01 - Run & Access nginx pod
 ```bash
 kubectl run --image nginx nginx
 kubectl exec -it nginx -- bash
-```
-
-> 02 - Exec curl
-```bash
-# svc-name.namespace.svc.cluster.local:<port-if-exists>
-curl flask-app-svc.flask.svc.cluster.local:8080
 ```
 
 ### Teste do Blue/Green service:
