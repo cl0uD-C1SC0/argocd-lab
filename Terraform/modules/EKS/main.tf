@@ -27,6 +27,8 @@ resource "aws_eks_node_group" "eks-ndg-argocd" {
   node_group_name   = var.eks_cluster_ndg-name
   node_role_arn     = aws_iam_role.eks-argocd-ndg-role.arn
 
+  instance_types = ["t3.medium"]
+
   scaling_config {
     desired_size = 2
     max_size = 2
