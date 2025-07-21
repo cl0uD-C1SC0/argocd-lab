@@ -20,6 +20,31 @@ Essa é uma abordagem extremamente controlada onde permite testar a nova versão
 
 Você pode verificar os manifestos de configuração [clicando aqui](../../Kubernetes/flask-app-canary/) <br><br>
 
+## Como utilizar?
+
+* 01 - Realize o build de uma nova imagem da sua aplicação que queira testar
+* 02 - Lance a nova imagem para dentro do repo ECR: flask-app
+* 03 - Acesse o repositório do AWS CodeCommit: flask-app-canary
+* 04 - Acesse o arquivo de Deployment e substitua a URL da imagem pela a mais atual
+* 05 - Após salvar o arquivo de deploy, acesse o painel do ArgoCD
+> As credenciais de acesso estão localizadas no diretório raiz do repositório no arquivo: argocd_credentials.txt
+
+* 06 - Aguarde o ArgoCD realizer o Sync no APP ou realize de forma manual
+* 07 - Acesse a página do ArgoCD dentro do app: flask-app-bluegreen
+* 08 - Na linha de comando execute os testes:
+[Validar configuração Canary](../../Kubernetes/README.md)
+
+### (OPCIONAL) Visualizar pelo Dashboard do Argo Rollouts:
+
+* 01 - (OPTIONAL) Acesse o Dashboard do Argo Rollouts
+```bash
+kubectl argo rollouts dashboard
+```
+> Esse comando cria um endereço em -> localhost:3100
+
+* 02 - (OPTIONAL) Acesse o namespace: flask-app-hml, colocando-o no canto superior direito no dashboard do argo-rollouts
+
+
 ## 💣 Caso de Uso: Mobile em Prod
 
 **Veja agora um exemplo de caso de uso:** Imagine que o time de desenvolvimento de aplicativos móveis deseja subir uma nova versão do seu app no **Google Play Store**, a versão atual está com alguns problemas de lentidão e diversos usuários relataram uma incompatibilidade com o app em seus dispositivos.
