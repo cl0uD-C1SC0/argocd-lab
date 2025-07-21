@@ -17,15 +17,14 @@ O Diretório do ArgoCD é responsável por conter manifestos e documentações d
 
 Abaixo uma breve descrição de cada item dentro do diretório
 
-NOME | OBJETIVO |
+NOME | OBJETIVO | DOCUMENTAÇÃO
 ---| ---|
-📁 blue-green | Diretório com manifestos e documentação a respeito de como realizar o **Blue-green**
-📁 canary-and-rollback | Diretório com manifestos e documentação sobre o **Canary deploy & Rollback**
-📁 pipeline | Diretório que contém a topologia da Pipeline utiliada pelo **GitHub Actions**
-📁 projects-management | Diretório que contém a documentação sobre gerenciamento de projetos no ArgoCD
-📁 user-management | Diretório que contém uma documentação a respeito do gerenciamento de usuários e permissões
-📃 argocd-in.yml | Arquivo de Ingress de exemplo para expor o ArgoCD via Ingress-nginx
-ℹ️ README.md | Documentação com detalhes sobre cada subdiretório dentro do diretório raiz **ArgoCD**
+📁 blue-green | Diretório com documentação a respeito de como realizar o **Blue-green** | [Documentação BlueGreen](./blue-green/README.md)
+📁 canary-and-rollback | Diretório documentação sobre o **Canary deploy & Rollback** | [Documentação Canary](./canary/README.md)
+📁 projects-management | Diretório que contém a documentação sobre gerenciamento de projetos no ArgoCD | [Documentação sobre Projects](./projects-management/README.md)
+📁 user-management | Diretório que contém uma documentação a respeito do gerenciamento de usuários e permissões | [Documentação sobre Users](./user-management/README.md)
+📃 argocd-in.yml | Arquivo de Ingress de exemplo para expor o ArgoCD via Ingress-nginx | ❌
+ℹ️ README.md | Documentação com detalhes sobre cada subdiretório dentro do diretório raiz **ArgoCD** | ❌
 
 ## Comandos gerais ArgoCD CLI:
 
