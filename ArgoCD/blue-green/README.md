@@ -26,6 +26,35 @@ A **diferença** entre Blue/Green
 
 Você pode verificar os manifestos de configuração [clicando aqui](../../Kubernetes/flask-app-bluegreen/) <br><br>
 
+
+## Como utilizar?
+
+* 01 - Realize o build de uma nova imagem da sua aplicação que queira testar
+* 02 - Lance a nova imagem para dentro do repo ECR: flask-app
+* 03 - Acesse o repositório do AWS CodeCommit: flask-app-bluegreen
+* 04 - Acesse o arquivo de Deployment e substitua a URL da imagem pela a mais atual
+* 05 - Após salvar o arquivo de deploy, acesse o painel do ArgoCD
+> As credenciais de acesso estão localizadas no diretório raiz do repositório no arquivo: argocd_credentials.txt
+
+* 06 - Aguarde o ArgoCD realizer o Sync no APP ou realize de forma manual
+* 07 - Acesse a página do ArgoCD dentro do app: flask-app-bluegreen
+* 08 - Na linha de comando execute os testes:
+[Validar configuração Blue/Green](../../Kubernetes/README.md)
+* 09 - Promova o APP logando no ArgoCD CLI e executando:
+```bash
+kubectl-argo-rollouts promote flask-app-hml flask-app-bluegreen
+```
+
+### (OPCIONAL) Visualizar pelo Dashboard do Argo Rollouts:
+
+* 01 - (OPTIONAL) Acesse o Dashboard do Argo Rollouts
+```bash
+kubectl argo rollouts dashboard
+```
+> Esse comando cria um endereço em -> localhost:3100
+
+* 02 - (OPTIONAL) Acesse o namespace: flask-app-hml, colocando-o no canto superior direito no dashboard do argo-rollouts
+
 ## 💣 Caso de Uso: 
 
 Imagine que você trabalhe para uma instituição financeira que tem serviços como transferência bancária, **PIX**, conta corrente e/ou salário, portabilidade e outras features comuns em aplicativos bancários.
@@ -42,3 +71,4 @@ Com o Blue/Green Deployment, não é necessário efetuar essa atualização tard
 * Evita, na maiorida dos casos, horas extras, para subir atualizações (RDMs/Requisição de Mudança)
 * Problemas de compatibilidade com a nova versão, visto que ela pode ser testada por um grupo seleto de pessoas autorizadas.
 * Não gera Downtime e muito menos impacto no cliente final quando uma nova release está pronta para a produção. 
+
