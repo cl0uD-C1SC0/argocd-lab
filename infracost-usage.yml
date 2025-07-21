@@ -1,12 +1,17 @@
 version: 0.1
 
-resource_type_default_usage:
+resource_usage:
   module.eks.aws_eks_cluster.eks-argocd:
-    monthly_hrs: 2
+    monthly_hours: 4
   module.eks.aws_eks_node_group.eks-ndg-argocd:
-    monthly_hrs: 2
+    instances:
+      - instance_type: t3.medium  # ajuste se for outro tipo
+        monthly_hours: 4
+      - instance_type: t3.medium  # ajuste se for outro tipo
+        monthly_hours: 4
+
   module.vpc.aws_nat_gateway.natgateway:
     monthly_data_processed_gb: 2
+
   module.ecr.aws_ecr_repository.argocd-ecr-repo:
-    storage_gb: 2
-    monthly_hrs: 2
+    storage_gb: 3
