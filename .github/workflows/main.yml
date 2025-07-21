@@ -1,27 +1,59 @@
 name: argocd-rollouts-cicd
-run-name: ${{ github.actor }} Pipeline deploy
+run-name: ArgoRollouts CICD
 on:
   push:
     branches:
       - "main"
-    paths-ignore:
-      - "*.txt"
-      - ".md"
-      - ".tf"
-      - "init.py"
-      - ".gitignore"
-      - ".yaml"
+    paths:
+      - "**.tf"
+      - "**.yml"
+      - "**.yaml"
 jobs:
-  argocd-rollouts:
+  install-packages:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: INSTALL PACKAGES
+      - uses: actions/checkout@v4
+      - name: Install Terraform
         run: |
-          echo "v1"
-          # A pipeline vai fazer o Build do APP
-          # Rodar o SNYK SCAN
-          # VALIDAR SE A BRANCH FOR MAIN = ABRIR PR automatica da dev para main no repo de codigo
-          # DOCKER PUSH para o ECR
-          # 
+          sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
+          wget -O- https://apt.releases.hashicorp.com/gpg | \
+            gpg --dearmor | \
+            sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
+          sudo apt update
+          sudo apt-get install terraform
+      - name: Install Terraform Lint (tflint)
+        run: |
+          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+      - name: Install Terraform Sec Lint (tfsec)
+        run: |
+          curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
+      - name: Install Infracost
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
+  init-terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Terraform Init
+        run: cd ./Terraform && terraform init
+  verify-terraform-lint:
+    runs-on: ubuntu-latest    
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run tflint
+        run: tflint --init && tflint
+  verify-terraform-sec:
+    runs-on: ubuntu-latest    
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run tfsec
+        run: tfsec .
+  verify-ansible-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run ansible-lint
+        uses: ansible/ansible-lint@main
+        with:
+          setup_python: "true"
+          working_directory: "../Ansible/playbooks"
