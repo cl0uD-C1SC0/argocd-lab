@@ -89,8 +89,9 @@ Qualquer problema na execução ou falha do script, peço que me contate nas red
 
 ⌚️ **Tempo de execução para criar: 13 minutos**
 
-O Laboratório **"roda"** interiamente dentro do ambiente **AWS** e será necessário algumas permissões listadas abaixo. 
+> ⚠️ O Repositório é totalmente inicializado dentro da sua conta AWS. Portanto, tome cuidado. Utilize as permissões definidas logo mais abaixo para a prática **Least Privilege** 
 
+> ⚠️ Não é recomendado utilizar contas da AWS produtivas neste ambiente. 
 
 **REQUISITOS MÍNIMOS**
 
