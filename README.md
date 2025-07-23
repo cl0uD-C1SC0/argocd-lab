@@ -145,6 +145,14 @@ SELECT AN OPTION: 1
 kubectl config get-contexts
 ```
 
+**06 - Após a execução do script, os seguintes outputs serão gerados**
+
+- OUTPUT 1: **argocd_credentials.txt** 
+    - Contém as credenciais de acesso ao ArgoCD + URL
+
+- OUTPUT 2: **terraform_outputs**
+    - Contém as credenciais do AWS CodeCommit
+
 <br>
 
 
